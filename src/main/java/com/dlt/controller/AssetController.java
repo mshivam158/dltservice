@@ -28,11 +28,13 @@ import com.dlt.model.EOSystemAsset;
 import com.dlt.repos.IAssetMasterRepo;
 import com.dlt.repos.ISystemAssetRepo;
 
+import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/v1/assets")
+@Api(value = "Assets API", description = "Api Used For Assets Master, System Assets operation", tags = "Assets API")
 public class AssetController extends BaseController {
 	@Autowired
 	private IAssetMasterRepo assetMasterRepo;

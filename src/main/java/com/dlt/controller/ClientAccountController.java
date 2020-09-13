@@ -12,11 +12,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.dlt.model.EOClientAccount;
 import com.dlt.repos.IClientAccountRepo;
 
+import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(path = "/v1/clientaccount")
+@Api(value = "Client Account API", tags = "Client Account API")
 public class ClientAccountController {
 	@Autowired
 	private IClientAccountRepo clientAccountRepos;

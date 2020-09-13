@@ -14,11 +14,13 @@ import com.dlt.model.EOProjectInfo;
 import com.dlt.repos.IProjectInfoRepo;
 import com.dlt.repos.IProjectRepo;
 
+import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(path = "/v1/project")
+@Api(value = "Project API", tags = "Project API")
 public class ProjectController {
 	@Autowired
 	private IProjectRepo projectRepo;
