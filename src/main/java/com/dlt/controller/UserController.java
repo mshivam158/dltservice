@@ -12,9 +12,11 @@ import com.dlt.model.EOUser;
 import com.dlt.repos.UserRepo;
 
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 @RestController
 @AllArgsConstructor
+@NoArgsConstructor
 public class UserController {
 	private UserRepo userRepo;
 

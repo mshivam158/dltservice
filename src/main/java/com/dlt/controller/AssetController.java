@@ -14,11 +14,12 @@ import com.dlt.repos.AssetMasterRepo;
 import com.dlt.repos.AssetRepo;
 
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 @RestController
 @AllArgsConstructor
+@NoArgsConstructor
 public class AssetController {
-	//@Autowired
 	private AssetMasterRepo assetMasterRepo;
 	//@Autowired
 	private AssetRepo assetRepo;
