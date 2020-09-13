@@ -1,18 +1,26 @@
 package com.dlt.enumconstant;
 
-public enum Classification {
+import java.util.HashMap;
 
-	Furniture,
-	Building,
-	Electrical,
-	Electronics,
-	Mechanical,
-	Communication,
-	Engineering,
-	Computer,
-	Infrastructure,
-	Transport,
-	officeEquipment,
-	IT_Equipment,
-	Logistics;
+public enum Classification {
+	Furniture("Furniture"), Building("Building"), Electrical("Electrical"), Electronics("Electronics"), Mechanical("Mechanical"), Communication("Communication"), Engineering("Engineering"), Computer("Computer"), Infrastructure(
+			"Infrastructure"), Transport("Transport"), officeEquipment("officeEquipment"), IT_Equipment("IT_Equipment"), Logistics("Logistics");
+
+	private String id;
+
+	private Classification(String id) {
+		this.id = id;
+	}
+
+	private static HashMap<String, Classification> classificationMap = new HashMap<>();
+
+	static {
+		for (Classification classification : Classification.values()) {
+			classificationMap.put(classification.id, classification);
+		}
+	}
+
+	public static Classification assetsStatusForID(String id) {
+		return classificationMap.get(id);
+	}
 }

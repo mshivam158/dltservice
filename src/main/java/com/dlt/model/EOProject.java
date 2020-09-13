@@ -1,13 +1,13 @@
 package com.dlt.model;
 
-import java.io.Serializable;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+
+import lombok.Data;
 
 /**
  * • Project is created by the system admin through the system admin interface.
@@ -17,8 +17,10 @@ import javax.persistence.ManyToOne;
  * @author Shivam
  *
  */
+
+@Data
 @Entity
-public class Project implements Serializable {
+public class EOProject extends EOObject {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -28,10 +30,10 @@ public class Project implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name = "ClientID", nullable = false)
-	private ClientAccount clientAccount;
+	private EOClientAccount clientAccount;
 
 	public Long getProjectId() {
-		return projectId;
+		return this.projectId;
 	}
 
 	public void setProjectId(Long projectId) {
@@ -39,18 +41,18 @@ public class Project implements Serializable {
 	}
 
 	public String getProjectName() {
-		return projectName;
+		return this.projectName;
 	}
 
 	public void setProjectName(String projectName) {
 		this.projectName = projectName;
 	}
 
-	public ClientAccount getClientAccount() {
-		return clientAccount;
+	public EOClientAccount getClientAccount() {
+		return this.clientAccount;
 	}
 
-	public void setClientAccount(ClientAccount clientAccount) {
+	public void setClientAccount(EOClientAccount clientAccount) {
 		this.clientAccount = clientAccount;
 	}
 

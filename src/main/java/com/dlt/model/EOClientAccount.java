@@ -1,12 +1,13 @@
 package com.dlt.model;
 
-import java.io.Serializable;
 import java.sql.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
+import lombok.Data;
 
 /**
  * • Above data is entered by the system administrator through system admin
@@ -21,9 +22,11 @@ import javax.persistence.Id;
  *
  */
 
+@Data
 @Entity
-public class ClientAccount implements Serializable {
+public class EOClientAccount extends EOObject {
 	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long clientId;

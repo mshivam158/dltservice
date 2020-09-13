@@ -1,6 +1,5 @@
 package com.dlt.model;
 
-import java.io.Serializable;
 import java.sql.Date;
 
 import javax.persistence.Entity;
@@ -11,7 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 @Entity
-public class ProjectInfo implements Serializable {
+public class EOProjectInfo extends EOObject {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -26,7 +25,7 @@ public class ProjectInfo implements Serializable {
 
 	@OneToOne
 	@JoinColumn(name = "projectID", nullable = false)
-	private Project project; //index should be applied on this column.
+	private EOProject project; //index should be applied on this column.
 
 	public Long getPrimaryKey() {
 		return this.primaryKey;
@@ -84,11 +83,11 @@ public class ProjectInfo implements Serializable {
 		this.status = status;
 	}
 
-	public Project getProject() {
+	public EOProject getProject() {
 		return this.project;
 	}
 
-	public void setProject(Project project) {
+	public void setProject(EOProject project) {
 		this.project = project;
 	}
 

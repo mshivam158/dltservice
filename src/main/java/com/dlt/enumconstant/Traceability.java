@@ -1,9 +1,25 @@
 package com.dlt.enumconstant;
 
-public enum Traceability {
+import java.util.HashMap;
 
-	serialization,
-	batch,
-	batchSerializ,
-	none;
+public enum Traceability {
+	Serialization("Serialization"), Batch("Batch"), BatchSerializ("BatchSerializ"), None("None");
+
+	private String id;
+
+	private Traceability(String id) {
+		this.id = id;
+	}
+
+	private static HashMap<String, Traceability> traceabilityMap = new HashMap<>();
+
+	static {
+		for (Traceability traceability : Traceability.values()) {
+			traceabilityMap.put(traceability.id, traceability);
+		}
+	}
+
+	public static Traceability assetsStatusForID(String id) {
+		return traceabilityMap.get(id);
+	}
 }

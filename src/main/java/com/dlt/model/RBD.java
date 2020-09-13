@@ -2,11 +2,10 @@ package com.dlt.model;
 
 import java.io.Serializable;
 
-import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-@Entity
+//@Entity
 public class RBD implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -19,7 +18,7 @@ public class RBD implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name = "systemID", nullable = false)
-	private System system;
+	private EOSystem system;
 	//private Assets assets;
 
 }

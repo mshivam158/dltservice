@@ -1,6 +1,5 @@
 package com.dlt.model;
 
-import java.io.Serializable;
 import java.sql.Date;
 
 import javax.persistence.Entity;
@@ -20,7 +19,7 @@ import javax.persistence.ManyToOne;
  *
  */
 @Entity
-public class System implements Serializable {
+public class EOSystem extends EOObject {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -36,7 +35,7 @@ public class System implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name = "stationID", nullable = false)
-	private Station station;
+	private EOStation station;
 
 	public Long getSystemId() {
 		return this.systemId;
@@ -94,11 +93,11 @@ public class System implements Serializable {
 		this.sytemStatus = sytemStatus;
 	}
 
-	public Station getStation() {
+	public EOStation getStation() {
 		return this.station;
 	}
 
-	public void setStation(Station station) {
+	public void setStation(EOStation station) {
 		this.station = station;
 	}
 

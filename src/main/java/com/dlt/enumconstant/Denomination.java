@@ -1,12 +1,25 @@
 package com.dlt.enumconstant;
 
-public enum Denomination {
+import java.util.HashMap;
 
-	each,
-	pair,
-	set,
-	meter,
-	squareMeter,
-	kilogram,
-	litre;
+public enum Denomination {
+	Each("Each"), Pair("Pair"), Set("Set"), Meter("Meter"), SquareMeter("SquareMeter"), Kilogram("Kilogram"), Litre("Litre");
+
+	private String id;
+
+	private Denomination(String id) {
+		this.id = id;
+	}
+
+	private static HashMap<String, Denomination> denominationMap = new HashMap<>();
+
+	static {
+		for (Denomination denomination : Denomination.values()) {
+			denominationMap.put(denomination.id, denomination);
+		}
+	}
+
+	public static Denomination assetsStatusForID(String id) {
+		return denominationMap.get(id);
+	}
 }

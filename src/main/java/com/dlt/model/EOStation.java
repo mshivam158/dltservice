@@ -1,7 +1,5 @@
 package com.dlt.model;
 
-import java.io.Serializable;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,7 +15,7 @@ import javax.persistence.ManyToOne;
  *
  */
 @Entity
-public class Station implements Serializable {
+public class EOStation extends EOObject {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -28,10 +26,10 @@ public class Station implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name = "projectID", nullable = false)
-	private Project project;
+	private EOProject project;
 
 	public Long getStationId() {
-		return stationId;
+		return this.stationId;
 	}
 
 	public void setStationId(Long stationId) {
@@ -39,7 +37,7 @@ public class Station implements Serializable {
 	}
 
 	public String getStationName() {
-		return stationName;
+		return this.stationName;
 	}
 
 	public void setStationName(String stationName) {
@@ -47,18 +45,18 @@ public class Station implements Serializable {
 	}
 
 	public Long getSystems() {
-		return systems;
+		return this.systems;
 	}
 
 	public void setSystems(Long systems) {
 		this.systems = systems;
 	}
 
-	public Project getProject() {
-		return project;
+	public EOProject getProject() {
+		return this.project;
 	}
 
-	public void setProject(Project project) {
+	public void setProject(EOProject project) {
 		this.project = project;
 	}
 

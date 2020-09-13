@@ -1,12 +1,26 @@
 package com.dlt.enumconstant;
 
-public enum AssetLife {
+import java.util.HashMap;
 
-	Ops_Hours,
-	Ops_Cycles,
-	Ops_Day,
-	Ops_Miles,
-	Ops_Km,
-	On_Condition;
-	
+public enum AssetLife {
+	OpsHours("Ops Hours"), OpsCycles("Ops Cycles"), OpsDay("Ops Day"), OpsMiles("Ops Miles"), OpsKm("Ops Km"), OnCondition("On Condition");
+
+	private String id;
+
+	private AssetLife(String id) {
+		this.id = id;
+	}
+
+	private static HashMap<String, AssetLife> assetsLifeMap = new HashMap<>();
+
+	static {
+		for (AssetLife assets : AssetLife.values()) {
+			assetsLifeMap.put(assets.id, assets);
+		}
+	}
+
+	public static AssetLife assetsStatusForID(String id) {
+		return assetsLifeMap.get(id);
+	}
+
 }
