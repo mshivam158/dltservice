@@ -16,6 +16,12 @@ public class ApiError implements Serializable {
 		super();
 	}
 
+	public ApiError(ApiErrorCode errorCode) {
+		super();
+		this.isError=true;
+		this.msg = errorCode.getMsg();
+		this.errorCode = errorCode.getId();
+	}
 	public ApiError(int status, String msg, boolean isError) {
 		super();
 		this.status = status;

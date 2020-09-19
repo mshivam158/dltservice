@@ -2,12 +2,21 @@ package com.dlt.model;
 
 import java.sql.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import com.dlt.enumconstant.Status;
+
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * • Above data is entered by the system administrator through system admin
@@ -21,59 +30,36 @@ import lombok.Data;
  * @author Shivam
  *
  */
-
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
+@ApiModel
 public class EOClientAccount extends EOObject {
 	private static final long serialVersionUID = 1L;
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long clientId;
-
+	@Column(name = "ClientName", nullable = false)
 	private String clientName;
-	private String[] application;
+	@Column(name = "Applications", nullable = false)
+	@ApiModelProperty(required = true)
+	private String[] applications;
+	@Column(name = "LicenseStart", nullable = false)
+	@ApiModelProperty(required = true)
 	private Date licenseStart;
+	@Column(name = "LicenseExpiry", nullable = false)
+	@ApiModelProperty(required = true)
 	private Date licenseExpiry;
+	@Column(name = "UserID", nullable = false)
+	@ApiModelProperty(required = true)
 	private String userId;//email id
+	@Column(name = "Password", nullable = false)
+	@ApiModelProperty(required = true)
 	private String password;
-	private String clientStatus;//Active,Inactive
-
-	public Long getClientId() {
-		return this.clientId;
-	}
-
-	public void setClientId(Long clientId) {
-		this.clientId = clientId;
-	}
-
-	public String getClientName() {
-		return this.clientName;
-	}
-
-	public void setClientName(String clientName) {
-		this.clientName = clientName;
-	}
-
-	public String[] getApplication() {
-		return this.application;
-	}
-
-	public void setApplication(String[] application) {
-		this.application = application;
-	}
-
-	public Date getLicenseStart() {
-		return this.licenseStart;
-	}
-
-	public void setLicenseStart(Date licenseStart) {
-		this.licenseStart = licenseStart;
-	}
-
-	public Date getLicenseExpiry() {
-		return this.licenseExpiry;
-	}
+	@Column(name = "ClientStatus")
+	@Enumerated(EnumType.STRING)
+	private Status clientStatus = Status.Created;//Active,Inactive
 
 	public void setLicenseExpiry(Date licenseExpiry) {
 		this.licenseExpiry = licenseExpiry;
@@ -95,12 +81,49 @@ public class EOClientAccount extends EOObject {
 		this.password = password;
 	}
 
-	public String getClientStatus() {
+	public Status getClientStatus() {
 		return this.clientStatus;
 	}
 
-	public void setClientStatus(String clientStatus) {
+	public void setClientStatus(Status clientStatus) {
 		this.clientStatus = clientStatus;
+	}
+
+	public Long getClientId() {
+		return this.clientId;
+	}
+
+	public void setClientId(Long clientId) {
+		this.clientId = clientId;
+	}
+
+	@ApiModelProperty(required = true)
+	public String getClientName() {
+		return this.clientName;
+	}
+
+	public void setClientName(String clientName) {
+		this.clientName = clientName;
+	}
+
+	public String[] getApplications() {
+		return this.applications;
+	}
+
+	public void setApplications(String[] applications) {
+		this.applications = applications;
+	}
+
+	public Date getLicenseStart() {
+		return this.licenseStart;
+	}
+
+	public void setLicenseStart(Date licenseStart) {
+		this.licenseStart = licenseStart;
+	}
+
+	public Date getLicenseExpiry() {
+		return this.licenseExpiry;
 	}
 
 }

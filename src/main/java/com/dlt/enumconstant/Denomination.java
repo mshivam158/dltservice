@@ -3,7 +3,7 @@ package com.dlt.enumconstant;
 import java.util.HashMap;
 
 public enum Denomination {
-	Each("Each"), Pair("Pair"), Set("Set"), Meter("Meter"), SquareMeter("SquareMeter"), Kilogram("Kilogram"), Litre("Litre");
+    Each("Each"), Pair("Pair"), Set("Set"), Meter("Meter"), SquareMeter("SquareMeter"),Kilogram("Kilogram"), Litre("Litre");
 
 	private String id;
 

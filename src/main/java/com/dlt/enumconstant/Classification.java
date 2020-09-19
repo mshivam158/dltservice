@@ -3,8 +3,9 @@ package com.dlt.enumconstant;
 import java.util.HashMap;
 
 public enum Classification {
-	Furniture("Furniture"), Building("Building"), Electrical("Electrical"), Electronics("Electronics"), Mechanical("Mechanical"), Communication("Communication"), Engineering("Engineering"), Computer("Computer"), Infrastructure(
-			"Infrastructure"), Transport("Transport"), officeEquipment("officeEquipment"), IT_Equipment("IT_Equipment"), Logistics("Logistics");
+    Furniture("Furniture"), Building("Building"), Electrical("Electrical"), Electronics("Electronics"), Mechanical("Mechanical"),
+	Communication("Communication"), Engineering("Engineering"), Computer("Computer"), Infrastructure("Infrastructure"), Transport("Transport"),
+	officeEquipment("officeEquipment"), IT_Equipment("IT_Equipment"), Logistics("Logistics");
 
 	private String id;
 

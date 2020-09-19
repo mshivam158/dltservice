@@ -50,6 +50,17 @@ public class SwaggerConfig {
 				.apiInfo(this.metaData());
 	}
 
+	@Bean
+	public Docket ramdAppConfigApi() {
+		return new Docket(DocumentationType.SWAGGER_2)
+				.tags(new Tag("Ramd App Config API", "Ramd App Config API"))
+				.groupName("Ramd App Config API")
+				.select().apis(RequestHandlerSelectors.basePackage("com.dlt.controller"))
+				.paths(regex("/v1/ramdappconfig.*"))
+				.build()
+				.apiInfo(this.metaData());
+	}
+
 	private ApiInfo metaData() {
 		ApiInfo apiInfo = new ApiInfo(
 				"DLT Service REST API",

@@ -1,6 +1,6 @@
 package com.dlt.controller;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +25,7 @@ public class BaseController {
 		return ResponseEntity.status(HttpStatus.OK).body(eoObject);
 	}
 
-	protected ResponseEntity<Object> successResponseForList(ArrayList<EOObject> eoObjectList) {
+	protected ResponseEntity<Object> successResponseForList(List<? extends EOObject> eoObjectList) {
 		return ResponseEntity.status(HttpStatus.OK).body(eoObjectList);
 	}
 }

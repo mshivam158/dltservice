@@ -3,7 +3,7 @@ package com.dlt.enumconstant;
 import java.util.HashMap;
 
 public enum CriticalItem {
-	Reliability("Reliability"), Safety("Safety"), None("None");
+     Reliability("Reliability"), Safety("Safety"), None("None");
 
 	private String id;
 

@@ -3,7 +3,7 @@ package com.dlt.enumconstant;
 import java.util.HashMap;
 
 public enum Composition {
-	Plant("Plant"), System("System"), SubSystem("SubSystem"), Equipment("Equipment"), Assembly("Assembly"), Accessory("Accessory"), Part("Part"), Software("software");
+    Plant("Plant"), System("System"), SubSystem("SubSystem"), Equipment("Equipment"), Assembly("Assembly"),Accessory("Accessory"), Part("Part"), Software("software");
 
 	private String id;
 

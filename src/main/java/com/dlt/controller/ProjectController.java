@@ -1,61 +1,52 @@
 package com.dlt.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
+import javax.websocket.server.PathParam;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dlt.model.EOProject;
-import com.dlt.model.EOProjectInfo;
-import com.dlt.repos.IProjectInfoRepo;
-import com.dlt.repos.IProjectRepo;
+import com.dlt.service.ProjectSvcs;
 
 import io.swagger.annotations.Api;
-import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequiredArgsConstructor
 @RequestMapping(path = "/v1/project")
 @Api(value = "Project API", tags = "Project API")
-public class ProjectController {
-	@Autowired
-	private IProjectRepo projectRepo;
-	@Autowired
-	private IProjectInfoRepo projectInfoRepo;
 
-	@RequestMapping(path = "/all", method = RequestMethod.GET)
-	public List<EOProject> getProject() {
-		return this.projectRepo.findAll();
+public class ProjectController extends BaseController {
+
+	@Autowired
+	private ProjectSvcs projectSvcs;
+
+	@RequestMapping(path = "/getlookup", method = RequestMethod.GET)
+	public HashMap<String, Object> getProjectData() {
+		return this.projectSvcs.getLokksUpData();
 	}
 
 	@RequestMapping(path = "/add", method = RequestMethod.POST)
-	public EOProject addProject(@RequestBody EOProject eoProject) {
-		return this.projectRepo.save(eoProject);
+	public ResponseEntity<Object> addProject(@RequestBody EOProject eoProject) {
+		EOProject eoProjct = this.projectSvcs.createProject(eoProject);
+		return this.successResponseForObj(eoProjct);
 	}
 
-	@RequestMapping(path = "/delete/{id}", method = RequestMethod.DELETE)
-	public String deleteProject(@PathVariable("id") long id) {
-		this.projectRepo.deleteById(id);
-		return "Successfully Deleted";
+	@RequestMapping(path = "/delete", method = RequestMethod.DELETE)
+	public ResponseEntity<Object> deleteProjects(@RequestBody List<EOProject> proList) {
+		this.projectSvcs.deleteProjects(proList);
+		return this.deleteSuccess();
 	}
 
-	@RequestMapping(path = "/getProjectInfo", method = RequestMethod.GET)
-	public List<EOProjectInfo> getProjectInfo() {
-		return this.projectInfoRepo.findAll();
+	@RequestMapping(path = "/update/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<Object> updateProject(@RequestBody EOProject project, @PathParam("id") Long id) {
+		EOProject eoProject = this.projectSvcs.updateProject(project, id);
+		return this.successResponseForObj(eoProject);
 	}
 
-	@RequestMapping(path = "/addProjectInfo", method = RequestMethod.POST)
-	public EOProjectInfo addProjectInfo(@RequestBody EOProjectInfo eoProjectInfo) {
-		return this.projectInfoRepo.save(eoProjectInfo);
-	}
-
-	@RequestMapping(path = "/deleteProjectInfo/{id}", method = RequestMethod.DELETE)
-	public String deleteProjectInfo(@PathVariable("id") long id) {
-		this.projectInfoRepo.deleteById(id);
-		return "Successfully Deleted";
-	}
 }

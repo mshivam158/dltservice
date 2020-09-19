@@ -1,14 +1,20 @@
 package com.dlt.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
-import com.dlt.enumconstant.AssetsStatus;
+import com.dlt.enumconstant.AssetStatus;
 import com.dlt.enumconstant.CriticalItem;
+import com.dlt.enumconstant.Repairable;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,32 +24,55 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table(uniqueConstraints = {
+		@UniqueConstraint(columnNames = { "SystemAssetID", "SerialBatchNo" })
+})
 public class EOSystemAsset extends EOObject {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	private Long assetId;
-	private String traceability;
+	@Column(name = "SystemAssetID")
+	private Long sysAssetID;
+	@Column(name = "SerialBatchNo", nullable = false)
+	private String traceability; //Enable serial/batch no as per the option in Asset Master
+	@Column(name = "MaxLife", nullable = false)
 	private float opsLife;
-	private float opshour;
-	private float residualLife;
+	@Column(name = "OperatedLife")
+	private float operatedLife;
+	@Column(name = "ResidualLife")
+	private float residualLife; // residualLife=(Max Life - Operated Life)
+	@Column(name = "MTBFBaseline", nullable = false)
 	private float mtbfBaseline;
+	@Column(name = "MTBFCurrent")
 	private float mtbfcurrent;
+	@Column(name = "MTTRBaseline", nullable = false)
 	private float mttrBaseline;
+	@Column(name = "mttrCurrent")
 	private float mttrCurrent;
-
+	@Column(name = "Repairable", nullable = false)
+	@Enumerated(EnumType.STRING)
+	private Repairable repairable;
+	@Column(name = "LineReplaceable", nullable = false)
+	@Enumerated(EnumType.STRING)
+	private Repairable lineReplaceable;
+	@Column(name = "CriticalItem", nullable = false)
 	@Enumerated(EnumType.STRING)
 	private CriticalItem criticalItem;
+	@Column(name = "AssetStatus", nullable = false)
 	@Enumerated(EnumType.STRING)
-	private AssetsStatus assetStatus;
+	private AssetStatus assetStatus;
 
-	public Long getAssetId() {
-		return this.assetId;
+	@ManyToOne
+	@JoinColumn(name = "AssetMasterID", nullable = false)
+	private EOAssetMaster assetId;
+
+	public Long getSysAssetID() {
+		return this.sysAssetID;
 	}
 
-	public void setAssetId(Long assetId) {
-		this.assetId = assetId;
+	public void setSysAssetID(Long sysAssetID) {
+		this.sysAssetID = sysAssetID;
 	}
 
 	public String getTraceability() {
@@ -62,12 +91,12 @@ public class EOSystemAsset extends EOObject {
 		this.opsLife = opsLife;
 	}
 
-	public float getOpshour() {
-		return this.opshour;
+	public float getOperatedLife() {
+		return this.operatedLife;
 	}
 
-	public void setOpshour(float opshour) {
-		this.opshour = opshour;
+	public void setOperatedLife(float operatedLife) {
+		this.operatedLife = operatedLife;
 	}
 
 	public float getResidualLife() {
@@ -110,6 +139,22 @@ public class EOSystemAsset extends EOObject {
 		this.mttrCurrent = mttrCurrent;
 	}
 
+	public Repairable getRepairable() {
+		return this.repairable;
+	}
+
+	public void setRepairable(Repairable repairable) {
+		this.repairable = repairable;
+	}
+
+	public Repairable getLineReplaceable() {
+		return this.lineReplaceable;
+	}
+
+	public void setLineReplaceable(Repairable lineReplaceable) {
+		this.lineReplaceable = lineReplaceable;
+	}
+
 	public CriticalItem getCriticalItem() {
 		return this.criticalItem;
 	}
@@ -118,16 +163,20 @@ public class EOSystemAsset extends EOObject {
 		this.criticalItem = criticalItem;
 	}
 
-	public AssetsStatus getAssetStatus() {
+	public AssetStatus getAssetStatus() {
 		return this.assetStatus;
 	}
 
-	public void setAssetStatus(AssetsStatus assetStatus) {
+	public void setAssetStatus(AssetStatus assetStatus) {
 		this.assetStatus = assetStatus;
 	}
 
-	/*
-	 * @Column(name="SystemID") private System systemID;
-	 */
+	public EOAssetMaster getAssetId() {
+		return this.assetId;
+	}
+
+	public void setAssetId(EOAssetMaster assetId) {
+		this.assetId = assetId;
+	}
 
 }

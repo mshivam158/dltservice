@@ -1,5 +1,6 @@
 package com.dlt.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -9,12 +10,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import com.dlt.enumconstant.AssetLife;
 import com.dlt.enumconstant.Category;
 import com.dlt.enumconstant.Classification;
 import com.dlt.enumconstant.Composition;
 import com.dlt.enumconstant.Denomination;
-import com.dlt.enumconstant.Repairable;
+import com.dlt.enumconstant.LifeMeasure;
 import com.dlt.enumconstant.Traceability;
 
 import lombok.AllArgsConstructor;
@@ -30,33 +30,43 @@ public class EOAssetMaster extends EOObject {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "AssetID")
 	private Long assetId;
+	@Column(name = "Nomenclature", nullable = false)
 	private String nomenclature;
+	@Column(name = "DrawingNo", nullable = false)
 	private String drawingNo;
+	@Column(name = "DrawingItemReference", nullable = false)
 	private String drawingItemReference;
+	@Column(name = "PartNumber", nullable = false)
 	private String partNumber;
+	@Column(name = "Model", nullable = false)
 	private String model;
+	@Column(name = "Manufacturer", nullable = false)
 	private String manufacturer;
+	@Column(name = "Classification", nullable = false)
 	@Enumerated(EnumType.STRING)
 	public Classification classification;
+	@Column(name = "Category")
 	@Enumerated(EnumType.STRING)
 	private Category category;
+	@Column(name = "Composition", nullable = false)
 	@Enumerated(EnumType.STRING)
 	private Composition composition;
+	@Column(name = "Traceability", nullable = false)
 	@Enumerated(EnumType.STRING)
 	private Traceability traceability;
+	@Column(name = "Denomination", nullable = false)
 	private Denomination denomination;
+	@Column(name = "LifeMeasure", nullable = false)
 	@Enumerated(EnumType.STRING)
-	private AssetLife assetLife;
-	@Enumerated(EnumType.STRING)
-	private Repairable repairable;
-	private String lineReplaceable;
-	private String maintainable;
-	private String vendorId;
+	private LifeMeasure lifeMeasure;
+	@Column(name = "ParentAsset")
+	private Long parentAssetId;
 
 	@ManyToOne
-	@JoinColumn(name = "ParentAsset")
-	private EOSystemAsset parentAssetId;
+	@JoinColumn(name = "AssetMasterListID", nullable = false)
+	private EOAssetMasterList assetMasterListID;
 
 	public Long getAssetId() {
 		return this.assetId;
@@ -154,52 +164,28 @@ public class EOAssetMaster extends EOObject {
 		this.denomination = denomination;
 	}
 
-	public AssetLife getAssetLife() {
-		return this.assetLife;
+	public LifeMeasure getLifeMeasure() {
+		return this.lifeMeasure;
 	}
 
-	public void setAssetLife(AssetLife assetLife) {
-		this.assetLife = assetLife;
+	public void setLifeMeasure(LifeMeasure lifeMeasure) {
+		this.lifeMeasure = lifeMeasure;
 	}
 
-	public Repairable getRepairable() {
-		return this.repairable;
-	}
-
-	public void setRepairable(Repairable repairable) {
-		this.repairable = repairable;
-	}
-
-	public String getLineReplaceable() {
-		return this.lineReplaceable;
-	}
-
-	public void setLineReplaceable(String lineReplaceable) {
-		this.lineReplaceable = lineReplaceable;
-	}
-
-	public String getMaintainable() {
-		return this.maintainable;
-	}
-
-	public void setMaintainable(String maintainable) {
-		this.maintainable = maintainable;
-	}
-
-	public String getVendorId() {
-		return this.vendorId;
-	}
-
-	public void setVendorId(String vendorId) {
-		this.vendorId = vendorId;
-	}
-
-	public EOSystemAsset getParentAssetId() {
+	public Long getParentAssetId() {
 		return this.parentAssetId;
 	}
 
-	public void setParentAssetId(EOSystemAsset parentAssetId) {
+	public void setParentAssetId(Long parentAssetId) {
 		this.parentAssetId = parentAssetId;
+	}
+
+	public EOAssetMasterList getAssetMasterListID() {
+		return this.assetMasterListID;
+	}
+
+	public void setAssetMasterListID(EOAssetMasterList assetMasterListID) {
+		this.assetMasterListID = assetMasterListID;
 	}
 
 }

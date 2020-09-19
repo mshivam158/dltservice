@@ -3,7 +3,7 @@ package com.dlt.enumconstant;
 import java.util.HashMap;
 
 public enum Repairable {
-	Yes("Yes"), No("No"),;
+	Yes("Yes"), No("No"), ;
 
 	private String id;
 
