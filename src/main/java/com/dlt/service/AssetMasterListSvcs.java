@@ -34,6 +34,10 @@ public class AssetMasterListSvcs {
 		return returnMap;
 	}
 
+	public List<EOAssetMasterList> getAllMasterList() {
+		return this.assetMasterListRepo.findAll();
+	}
+
 	public EOAssetMasterList createAssetMasterList(EOAssetMasterList eoAssetMasterListObj) {
 		EOAssetMasterList eoAssetMasterList;
 		EORamdAppConfigSetup eoRamdAppConfigSetup = this.eoRamdAppConfigSetupRepo.findAll().get(0);

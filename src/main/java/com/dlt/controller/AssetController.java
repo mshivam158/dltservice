@@ -77,6 +77,11 @@ public class AssetController extends BaseController {
 		return this.assetMasterListSvcs.getLooksUpData();
 	}
 
+	@RequestMapping(path = "/masterList/all", method = RequestMethod.GET)
+	public ResponseEntity<Object> getAllAssetMasterList() {
+		return this.successResponseForList(this.assetMasterListSvcs.getAllMasterList());
+	}
+
 	@RequestMapping(path = "/masterList/add", method = RequestMethod.POST)
 	public ResponseEntity<Object> addAssetMasterList(@RequestBody EOAssetMasterList eoAssetMasterListObj) {
 		EOAssetMasterList eoAssetMasterList = this.assetMasterListSvcs.createAssetMasterList(eoAssetMasterListObj);

@@ -20,7 +20,6 @@ import io.swagger.annotations.Api;
 @RestController
 @RequestMapping(path = "/v1/project")
 @Api(value = "Project API", tags = "Project API")
-
 public class ProjectController extends BaseController {
 
 	@Autowired
