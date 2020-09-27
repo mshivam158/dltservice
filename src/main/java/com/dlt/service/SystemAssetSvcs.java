@@ -39,14 +39,17 @@ public class SystemAssetSvcs {
 		return returnMap;
 	}
 
+	public List<EOSystemAsset> getAllSystemAssets() {
+		return this.systemAssetRepo.findAll();
+	}
+
 	public EOSystemAsset createSystemAsset(EOSystemAsset eoSystmAsset) {
 		EOSystemAsset eoAssetObj;
-		if (eoSystmAsset.getAssetId() != null && eoSystmAsset.getAssetId().getAssetId() != null) {
+		EORamdAppConfigSetup eoRamdAppConfigSetup = this.eoRamdAppConfigSetupRepo.findAll().get(0);
+		if (eoSystmAsset.getAssetId() == null || eoSystmAsset.getAssetId().getAssetId() == null) {
 			throw new RestValidationException(ApiErrorCode.AMSA01);
 		}
-
-		EORamdAppConfigSetup eoRamdAppConfigSetup = this.eoRamdAppConfigSetupRepo.findAll().get(0);
-		if (this.systemAssetRepo.count() == eoRamdAppConfigSetup.getMaxAsset()) {
+		if (this.systemAssetRepo.findByAssetMasterPkCount(eoSystmAsset.getAssetId().getAssetId()) == eoRamdAppConfigSetup.getMaxAssetMaster()) {
 			throw new RestValidationException(ApiErrorCode.AMC02);
 		}
 		eoSystmAsset.setResidualLife(eoSystmAsset.getOpsLife() - eoSystmAsset.getOperatedLife());

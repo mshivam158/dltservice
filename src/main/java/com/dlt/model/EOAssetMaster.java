@@ -61,8 +61,18 @@ public class EOAssetMaster extends EOObject {
 	@Column(name = "LifeMeasure", nullable = false)
 	@Enumerated(EnumType.STRING)
 	private LifeMeasure lifeMeasure;
-	@Column(name = "ParentAsset")
-	private Long parentAssetId;
+
+	@JoinColumn(name = "ParentAssetID")
+	@ManyToOne
+	private EOAssetMaster parentAssetId;
+
+	public EOAssetMaster getParentAssetId() {
+		return this.parentAssetId;
+	}
+
+	public void setParentAssetId(EOAssetMaster parentAssetId) {
+		this.parentAssetId = parentAssetId;
+	}
 
 	@ManyToOne
 	@JoinColumn(name = "AssetMasterListID", nullable = false)
@@ -170,14 +180,6 @@ public class EOAssetMaster extends EOObject {
 
 	public void setLifeMeasure(LifeMeasure lifeMeasure) {
 		this.lifeMeasure = lifeMeasure;
-	}
-
-	public Long getParentAssetId() {
-		return this.parentAssetId;
-	}
-
-	public void setParentAssetId(Long parentAssetId) {
-		this.parentAssetId = parentAssetId;
 	}
 
 	public EOAssetMasterList getAssetMasterListID() {

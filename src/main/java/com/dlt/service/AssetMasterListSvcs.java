@@ -3,6 +3,7 @@ package com.dlt.service;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -65,6 +66,14 @@ public class AssetMasterListSvcs {
 		} catch (Exception e) {
 			throw new RestException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR.value());
 		}
+	}
+
+	public EOAssetMasterList findMasterListByID(Long id) {
+		Optional<EOAssetMasterList> option = this.assetMasterListRepo.findById(id);
+		if (!option.isPresent()) {
+			throw new RestValidationException(ApiErrorCode.AMC404);
+		}
+		return option.get();
 	}
 
 }

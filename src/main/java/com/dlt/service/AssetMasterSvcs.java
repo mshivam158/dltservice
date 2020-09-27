@@ -2,6 +2,7 @@ package com.dlt.service;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,6 +22,7 @@ import com.dlt.model.EORamdAppConfigSetup;
 import com.dlt.repos.IAssetMasterListRepo;
 import com.dlt.repos.IAssetMasterRepo;
 import com.dlt.repos.IRamdAppConfigSetupRepo;
+
 @Service
 public class AssetMasterSvcs {
 
@@ -30,8 +32,7 @@ public class AssetMasterSvcs {
 	private IAssetMasterListRepo assetMasterListRepo;
 	@Autowired
 	private IRamdAppConfigSetupRepo eoRamdAppConfigSetupRepo;
-	
-	
+
 	public HashMap<String, Object> getLookupData() {
 		HashMap<String, Object> returnMap = new HashMap<>();
 		returnMap.put("Classification", Classification.values());
@@ -44,26 +45,34 @@ public class AssetMasterSvcs {
 		returnMap.put("ASSET_MASTER_LIST", this.assetMasterListRepo.findAll());
 		return returnMap;
 	}
-	
+
 	public EOAssetMaster createAssetMaster(EOAssetMaster eoAssetMaster) {
 		EOAssetMaster eoAssetMasterObj;
-		EORamdAppConfigSetup eoRamdAppConfigSetup=this.eoRamdAppConfigSetupRepo.findAll().get(0);
-		if(this.assetMasterRepo.count() == eoRamdAppConfigSetup.getMaxAssetMaster()) {
-			throw new RestValidationException(ApiErrorCode.AMC02); 
+		EORamdAppConfigSetup eoRamdAppConfigSetup = this.eoRamdAppConfigSetupRepo.findAll().get(0);
+		if (this.assetMasterRepo.count() == eoRamdAppConfigSetup.getMaxAssetMaster()) {
+			throw new RestValidationException(ApiErrorCode.AMC02);
 		}
 		try {
 			eoAssetMasterObj = this.assetMasterRepo.save(eoAssetMaster);
-		}catch(Exception e) {
-			throw new RestException(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR.value());
+		} catch (Exception e) {
+			throw new RestException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR.value());
 		}
 		return eoAssetMasterObj;
 	}
-	
+
 	public void deleteAssetMaster(List<EOAssetMaster> eoAssetMasters) {
 		try {
 			this.assetMasterRepo.deleteInBatch(eoAssetMasters);
 		} catch (Exception e) {
 			throw new RestException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR.value());
 		}
+	}
+
+	public EOAssetMaster findAssetsMasterByID(Long id) {
+		Optional<EOAssetMaster> option = this.assetMasterRepo.findById(id);
+		if (!option.isPresent()) {
+			throw new RestValidationException(ApiErrorCode.AMC404);
+		}
+		return option.get();
 	}
 }
