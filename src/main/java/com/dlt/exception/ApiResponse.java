@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import com.dlt.enumconstant.ApiErrorCode;
 
-public class ApiError implements Serializable {
+public class ApiResponse implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private int status;
@@ -12,24 +12,27 @@ public class ApiError implements Serializable {
 	private boolean isError;
 	private String errorCode;
 
-	public ApiError() {
+	private Object data;
+
+	public ApiResponse() {
 		super();
 	}
 
-	public ApiError(ApiErrorCode errorCode) {
+	public ApiResponse(ApiErrorCode errorCode) {
 		super();
-		this.isError=true;
+		this.isError = true;
 		this.msg = errorCode.getMsg();
 		this.errorCode = errorCode.getId();
 	}
-	public ApiError(int status, String msg, boolean isError) {
+
+	public ApiResponse(int status, String msg, boolean isError) {
 		super();
 		this.status = status;
 		this.msg = msg;
 		this.isError = isError;
 	}
 
-	public ApiError(int status, String msg, boolean isError, ApiErrorCode errorCode) {
+	public ApiResponse(int status, String msg, boolean isError, ApiErrorCode errorCode) {
 		super();
 		this.status = status;
 		this.msg = msg;
@@ -67,6 +70,13 @@ public class ApiError implements Serializable {
 
 	public void setErrorCode(String errorCode) {
 		this.errorCode = errorCode;
+	}
+
+	public ApiResponse buildSuccess(Object data) {
+		this.data = data;
+		this.isError = false;
+		this.msg = "Action Perform Successfully.";
+		return this;
 	}
 
 }

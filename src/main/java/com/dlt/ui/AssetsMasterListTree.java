@@ -8,6 +8,15 @@ public class AssetsMasterListTree implements Serializable {
 
 	private Long id;
 	private String name;
+	private boolean isAssetsMasterList = true;
+
+	public boolean isAssetsMasterList() {
+		return this.isAssetsMasterList;
+	}
+
+	public void setAssetsMasterList(boolean isAssetsMasterList) {
+		this.isAssetsMasterList = isAssetsMasterList;
+	}
 
 	public Long getId() {
 		return this.id;

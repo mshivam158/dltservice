@@ -21,7 +21,7 @@ import com.dlt.service.AssetMasterListSvcs;
 import com.dlt.service.AssetMasterSvcs;
 import com.dlt.service.AssetsMasterTreeSvcs;
 import com.dlt.service.SystemAssetSvcs;
-import com.dlt.ui.AssetsMasterListTree;
+import com.dlt.ui.AssetsMaster;
 
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +29,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/v1/assets")
-@Api(value = "Assets API", description = "Api Used For AssetMasterList, AssetsMaster, SystemAssets operation", tags = "Assets API")
+@Api(value = "Assets API", tags = "Assets API")
 public class AssetController extends BaseController {
 
 	@Autowired
@@ -121,7 +121,7 @@ public class AssetController extends BaseController {
 
 	@RequestMapping(path = "/masterList/tree", method = RequestMethod.GET)
 	public ResponseEntity<Object> getTreeViewOfMaster() {
-		ArrayList<AssetsMasterListTree> treeView = this.assetsMasterTreeSvcs.getTreeStructure();
+		ArrayList<AssetsMaster> treeView = this.assetsMasterTreeSvcs.getTreeStructure();
 		return ResponseEntity.status(HttpStatus.OK).body(treeView);
 	}
 

@@ -10,7 +10,6 @@ import com.dlt.model.EOAssetMasterList;
 import com.dlt.repos.IAssetMasterListRepo;
 import com.dlt.repos.IAssetMasterRepo;
 import com.dlt.ui.AssetsMaster;
-import com.dlt.ui.AssetsMasterListTree;
 
 @Service
 public class AssetsMasterTreeSvcs {
@@ -19,12 +18,12 @@ public class AssetsMasterTreeSvcs {
 	@Autowired
 	private IAssetMasterRepo assetsMasterRepo;
 
-	public ArrayList<AssetsMasterListTree> getTreeStructure() {
-		ArrayList<AssetsMasterListTree> treeView = new ArrayList<AssetsMasterListTree>();
+	public ArrayList<AssetsMaster> getTreeStructure() {
+		ArrayList<AssetsMaster> treeView = new ArrayList<AssetsMaster>();
 		ArrayList<EOAssetMasterList> masterList = (ArrayList<EOAssetMasterList>) this.assetsMasterListRepo.findAll();
 		if (!masterList.isEmpty()) {
 			masterList.forEach(master -> {
-				AssetsMasterListTree parent = this.getParentTree(master);
+				AssetsMaster parent = this.getParentTree(master);
 				ArrayList<EOAssetMaster> assetsMaster = (ArrayList<EOAssetMaster>) this.assetsMasterRepo.getAssetsMasterForMasterList(master.getAssetMasterListId());
 				this.buildTreeForParent(parent, assetsMaster);
 				treeView.add(parent);
@@ -33,10 +32,11 @@ public class AssetsMasterTreeSvcs {
 		return treeView;
 	}
 
-	private AssetsMasterListTree getParentTree(EOAssetMasterList masterList) {
-		AssetsMasterListTree parent = new AssetsMasterListTree();
+	private AssetsMaster getParentTree(EOAssetMasterList masterList) {
+		AssetsMaster parent = new AssetsMaster();
 		parent.setId(masterList.getAssetMasterListId());
 		parent.setName(masterList.getAssetMasterNameAndVersion());
+		parent.setAssetsMasterList(true);
 		return parent;
 	}
 
@@ -54,11 +54,11 @@ public class AssetsMasterTreeSvcs {
 		return assetsMaster;
 	}
 
-	private void buildTreeForParent(AssetsMasterListTree parent, ArrayList<EOAssetMaster> assetsMaster) {
+	private void buildTreeForParent(AssetsMaster parent, ArrayList<EOAssetMaster> assetsMaster) {
 		if (!assetsMaster.isEmpty()) {
 			for (EOAssetMaster master : assetsMaster) {
 				AssetsMaster childMaster = this.getAssetsMater(master);
-				parent.addChildMaster(childMaster);
+				parent.addChildAssetsMaster(childMaster);
 			}
 		}
 	}

@@ -10,7 +10,7 @@ import com.dlt.enumconstant.ApiErrorCode;
 @ControllerAdvice
 public class RestExcepAdviser {
 	private ResponseEntity<Object> buildResponse(int status, Exception e, boolean isError) {
-		return ResponseEntity.status(status).body(new ApiError(status, e.getMessage(), isError));
+		return ResponseEntity.status(status).body(new ApiResponse(status, e.getMessage(), isError));
 	}
 
 	@ExceptionHandler({ RestException.class })
@@ -19,7 +19,7 @@ public class RestExcepAdviser {
 	}
 	
 	private ResponseEntity<Object> buildResponseValidation(ApiErrorCode e) {
-		return ResponseEntity.status(HttpStatus.OK).body(new ApiError(e));
+		return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse(e));
 	}
 	@ExceptionHandler({ RestValidationException.class })
 	public ResponseEntity<Object> handle(RestValidationException e) {
