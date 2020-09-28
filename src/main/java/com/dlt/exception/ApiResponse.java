@@ -83,7 +83,6 @@ public class ApiResponse implements Serializable {
 	public ApiResponse buildSuccess(Object data) {
 		this.data = data;
 		this.isError = false;
-		this.msg = "Action Perform Successfully.";
 		return this;
 	}
 
