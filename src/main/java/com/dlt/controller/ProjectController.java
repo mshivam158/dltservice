@@ -3,10 +3,9 @@ package com.dlt.controller;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.websocket.server.PathParam;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -43,7 +42,7 @@ public class ProjectController extends BaseController {
 	}
 
 	@RequestMapping(path = "/update/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<Object> updateProject(@RequestBody EOProject project, @PathParam("id") Long id) {
+	public ResponseEntity<Object> updateProject(@RequestBody EOProject project, @PathVariable("id") Long id) {
 		EOProject eoProject = this.projectSvcs.updateProject(project, id);
 		return this.successResponseForObj(eoProject);
 	}

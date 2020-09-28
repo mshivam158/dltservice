@@ -4,11 +4,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.websocket.server.PathParam;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -54,7 +53,7 @@ public class AssetController extends BaseController {
 	}
 
 	@RequestMapping(path = "/master/fetch/{id}", method = RequestMethod.GET)
-	public ResponseEntity<Object> addAssetMaster(@PathParam("id") Long id) {
+	public ResponseEntity<Object> addAssetMaster(@PathVariable("id") Long id) {
 		EOAssetMaster eoAssetMasterObj = this.assetMasterSvcs.findAssetsMasterByID(id);
 		return this.successResponseForObj(eoAssetMasterObj);
 	}
@@ -108,7 +107,7 @@ public class AssetController extends BaseController {
 	}
 
 	@RequestMapping(path = "/masterList/fetch/{id}", method = RequestMethod.GET)
-	public ResponseEntity<Object> addAssetMasterList(@PathParam("id") Long id) {
+	public ResponseEntity<Object> addAssetMasterList(@PathVariable("id") Long id) {
 		EOAssetMasterList eoAssetMasterList = this.assetMasterListSvcs.findMasterListByID(id);
 		return this.successResponseForObj(eoAssetMasterList);
 	}
