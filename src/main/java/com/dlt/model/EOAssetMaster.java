@@ -10,6 +10,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import com.dlt.enumconstant.Category;
 import com.dlt.enumconstant.Classification;
 import com.dlt.enumconstant.Composition;
@@ -64,6 +67,7 @@ public class EOAssetMaster extends EOObject {
 
 	@JoinColumn(name = "ParentAssetID")
 	@ManyToOne
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	private EOAssetMaster parentAssetId;
 
 	public EOAssetMaster getParentAssetId() {
@@ -76,6 +80,7 @@ public class EOAssetMaster extends EOObject {
 
 	@ManyToOne
 	@JoinColumn(name = "AssetMasterListID", nullable = false)
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	private EOAssetMasterList assetMasterListID;
 
 	public Long getAssetId() {

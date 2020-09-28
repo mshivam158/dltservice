@@ -13,6 +13,9 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.AllArgsConstructor;
@@ -47,6 +50,7 @@ public class EOAssetMasterList extends EOObject {
 
 	@ManyToOne
 	@JoinColumn(name = "ProjectID", nullable = false)
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	private EOProject projectID;
 
 	public Long getAssetMasterListId() {

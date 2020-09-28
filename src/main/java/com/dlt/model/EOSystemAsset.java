@@ -12,6 +12,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import com.dlt.enumconstant.AssetStatus;
 import com.dlt.enumconstant.CriticalItem;
 import com.dlt.enumconstant.Repairable;
@@ -65,6 +68,7 @@ public class EOSystemAsset extends EOObject {
 
 	@ManyToOne
 	@JoinColumn(name = "AssetMasterID", nullable = false)
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	private EOAssetMaster assetId;
 
 	public Long getSysAssetID() {

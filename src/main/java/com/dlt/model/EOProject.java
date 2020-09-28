@@ -13,6 +13,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import com.dlt.enumconstant.DLPReporting;
 import com.dlt.enumconstant.Status;
 
@@ -116,6 +119,7 @@ public class EOProject extends EOObject {
 
 	@ManyToOne
 	@JoinColumn(name = "ClientID", nullable = false)
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	private EOClientAccount clientId;
 
 	public Long getProjectId() {
