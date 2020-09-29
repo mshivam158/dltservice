@@ -20,6 +20,7 @@ import com.dlt.service.AssetMasterListSvcs;
 import com.dlt.service.AssetMasterSvcs;
 import com.dlt.service.AssetsMasterTreeSvcs;
 import com.dlt.service.SystemAssetSvcs;
+import com.dlt.ui.AssetMasterMenuItem;
 import com.dlt.ui.AssetsMaster;
 
 import io.swagger.annotations.Api;
@@ -118,10 +119,23 @@ public class AssetController extends BaseController {
 		return this.deleteSuccess();
 	}
 
-	@RequestMapping(path = "/masterList/tree", method = RequestMethod.GET)
-	public ResponseEntity<Object> getTreeViewOfMaster() {
-		ArrayList<AssetsMaster> treeView = this.assetsMasterTreeSvcs.getTreeStructure();
-		return ResponseEntity.status(HttpStatus.OK).body(treeView);
+	@RequestMapping(path = "/masterList/menuitem", method = RequestMethod.DELETE)
+	public ResponseEntity<Object> getMenuItemForAssetsMaster() {
+		ArrayList<AssetMasterMenuItem> menuItemList = new ArrayList<>();
+		ArrayList<EOAssetMasterList> masterList = (ArrayList<EOAssetMasterList>) this.assetMasterListSvcs.getAllMasterList();
+		for (EOAssetMasterList master : masterList) {
+			AssetMasterMenuItem menuItem = new AssetMasterMenuItem();
+			menuItem.setAssetMasterListId(master.getAssetMasterListId());
+			menuItem.setAssetMasterName(master.getAssetMasterName());
+			menuItem.setAssetMasterNameAndVersion(master.getAssetMasterNameAndVersion());
+			menuItemList.add(menuItem);
+		}
+		return this.successForDto(masterList);
 	}
 
+	@RequestMapping(path = "/masterList/tree/{id}", method = RequestMethod.GET)
+	public ResponseEntity<Object> getTreeViewOfMasterList(@PathVariable("id") Long masterListId) {
+		ArrayList<AssetsMaster> treeView = this.assetsMasterTreeSvcs.getTreeStructure(masterListId);
+		return ResponseEntity.status(HttpStatus.OK).body(treeView);
+	}
 }

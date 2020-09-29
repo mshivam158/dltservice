@@ -28,4 +28,8 @@ public class BaseController {
 	protected ResponseEntity<Object> successResponseForList(List<? extends EOObject> eoObjectList) {
 		return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse().buildSuccess(eoObjectList));
 	}
+
+	protected ResponseEntity<Object> successForDto(Object object) {
+		return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse().buildSuccess(object));
+	}
 }
