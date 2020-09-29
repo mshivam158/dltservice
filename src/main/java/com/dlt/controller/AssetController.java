@@ -130,7 +130,7 @@ public class AssetController extends BaseController {
 			menuItem.setAssetMasterNameAndVersion(master.getAssetMasterNameAndVersion());
 			menuItemList.add(menuItem);
 		}
-		return this.successForDto(masterList);
+		return this.successForDto(menuItemList);
 	}
 
 	@RequestMapping(path = "/masterList/tree/{id}", method = RequestMethod.GET)
