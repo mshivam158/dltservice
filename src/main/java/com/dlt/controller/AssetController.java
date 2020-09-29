@@ -119,7 +119,7 @@ public class AssetController extends BaseController {
 		return this.deleteSuccess();
 	}
 
-	@RequestMapping(path = "/masterList/menuitem", method = RequestMethod.DELETE)
+	@RequestMapping(path = "/masterList/menuitem", method = RequestMethod.GET)
 	public ResponseEntity<Object> getMenuItemForAssetsMaster() {
 		ArrayList<AssetMasterMenuItem> menuItemList = new ArrayList<>();
 		ArrayList<EOAssetMasterList> masterList = (ArrayList<EOAssetMasterList>) this.assetMasterListSvcs.getAllMasterList();
